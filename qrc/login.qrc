@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="bgImg">
+    <file>../sunset.jpeg</file>
+  </qresource>
+</RCC>
