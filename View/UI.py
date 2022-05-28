@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.Declare_Img = QtWidgets.QLabel(self.centralwidget)
         self.Declare_Img.setGeometry(QtCore.QRect(120, 160, 581, 371))
-        self.Declare_Img.setStyleSheet("border-image: url(:/images/900hz.jpg);\n"
+        self.Declare_Img.setStyleSheet("border-image: url(:/image/900hz.jpg);\n"
 "border-top-left-radius:40px;\n"
 "border-bottom-left-radius:40px;\n"
 "border-top-right-radius:40px;\n"
@@ -33,7 +33,7 @@ class Ui_MainWindow(object):
         font.setFamily("Noto Sans Hanunoo")
         font.setPointSize(19)
         self.Slogan.setFont(font)
-        self.Slogan.setStyleSheet("Color:black;")
+        self.Slogan.setStyleSheet("Color:white;")
         self.Slogan.setObjectName("Slogan")
         self.CompanyName = QtWidgets.QLabel(self.centralwidget)
         self.CompanyName.setGeometry(QtCore.QRect(150, 460, 211, 31))
@@ -41,15 +41,15 @@ class Ui_MainWindow(object):
         font.setFamily("Noto Sans Hanunoo")
         font.setPointSize(17)
         self.CompanyName.setFont(font)
-        self.CompanyName.setStyleSheet("Color:black;")
+        self.CompanyName.setStyleSheet("Color:white;")
         self.CompanyName.setObjectName("CompanyName")
         self.SystemName = QtWidgets.QLabel(self.centralwidget)
-        self.SystemName.setGeometry(QtCore.QRect(140, 490, 211, 31))
+        self.SystemName.setGeometry(QtCore.QRect(140, 490, 291, 31))
         font = QtGui.QFont()
         font.setFamily("PCMyungjo")
         font.setPointSize(14)
         self.SystemName.setFont(font)
-        self.SystemName.setStyleSheet("Color:black;")
+        self.SystemName.setStyleSheet("Color:white;")
         self.SystemName.setObjectName("SystemName")
         self.TeamName = QtWidgets.QLabel(self.centralwidget)
         self.TeamName.setGeometry(QtCore.QRect(550, 490, 211, 31))
@@ -57,12 +57,8 @@ class Ui_MainWindow(object):
         font.setFamily("Noto Sans Vai")
         font.setPointSize(14)
         self.TeamName.setFont(font)
-        self.TeamName.setStyleSheet("Color:black;")
+        self.TeamName.setStyleSheet("Color:white;")
         self.TeamName.setObjectName("TeamName")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setStyleSheet("Color:black;")
-        self.pushButton.setGeometry(QtCore.QRect(350, 480, 113, 32))
-        self.pushButton.setObjectName("pushButton")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -73,9 +69,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.Slogan.setText(_translate("MainWindow", "Every calling for Reason"))
         self.CompanyName.setText(_translate("MainWindow", "900赫茲電信公司"))
-        self.SystemName.setText(_translate("MainWindow", "大哥大客戶與帳務服務系統"))
+        self.SystemName.setText(_translate("MainWindow", "大哥大客戶與帳務服務系統  Version 0.5.28"))
         self.TeamName.setText(_translate("MainWindow", "製作團隊: D10817138"))
-        self.pushButton.setText(_translate("MainWindow", "Start"))
 from View import copyright_rc
 
 

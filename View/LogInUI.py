@@ -51,7 +51,7 @@ class LogIn_MainWindow(object):
         self.Title.setStyleSheet("color:white;")
         self.Title.setObjectName("Title")
         self.warning = QtWidgets.QLabel(self.centralwidget)
-        self.warning.setGeometry(QtCore.QRect(260, 550, 281, 21))
+        self.warning.setGeometry(QtCore.QRect(300, 550, 250, 21))
         font = QtGui.QFont()
         font.setFamily(".New York")
         font.setPointSize(17)
