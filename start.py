@@ -89,7 +89,6 @@ class MainPage_controller(QtWidgets.QMainWindow):
        super(MainPage_controller, self).__init__()
        self.ui=MainPage_Window()
        self.ui.setupUi(self)
-    #    self.ui.Fragment.mousePressEvent.connect(lambda: self.closeMenu())
        self.ui.burger.clicked.connect(lambda: self.slideLeftMenu())
 
    def slideLeftMenu(self):
@@ -115,25 +114,6 @@ class MainPage_controller(QtWidgets.QMainWindow):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
-
-   def closeMenu(self):
-            # Get current left menu width
-        width = self.ui.Left_Bar.width()
-        
-        # If minimized
-        if width == 150:
-            # Expand menu
-            newWidth = 0
-      
-      
-
-        # Animate the transition
-        self.animation = QPropertyAnimation(self.ui.Left_Bar, b"minimumWidth")#Animate minimumWidht
-        self.animation.setDuration(250)
-        self.animation.setStartValue(width)#Start value is the current menu width
-        self.animation.setEndValue(newWidth)#end value is the new menu width
-        self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
-        self.animation.start()
 
     
 if __name__ == '__main__':

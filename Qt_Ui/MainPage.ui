@@ -6,24 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>796</width>
-    <height>574</height>
+    <width>931</width>
+    <height>629</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="styleSheet">
-    <string notr="true">border:none;
-border-radiue:30px;</string>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
-    </property>
-    <property name="sizeConstraint">
-     <enum>QLayout::SetDefaultConstraint</enum>
     </property>
     <property name="leftMargin">
      <number>0</number>
@@ -38,18 +31,135 @@ border-radiue:30px;</string>
      <number>0</number>
     </property>
     <item>
-     <widget class="QFrame" name="MainFrame">
+     <widget class="QFrame" name="Header">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>16777215</height>
+        <height>100</height>
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 190, 255);
+       <string notr="true">background-color:rgb(248,142,114);
 border:none;
-border-radiue:30px;</string>
+border-radius:30px 0 ;</string>
       </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QPushButton" name="burger">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>41</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-image: url(:/image/icons/cil-menu.png);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>0</y>
+         <width>544</width>
+         <height>80</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QFrame" name="first">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border:3px black solid;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="pushButton_4">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_5">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_6">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="second">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="Context">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -81,17 +191,24 @@ border-radiue:30px;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QFrame{
-	background-color: rgb(255, 132, 26);
+          <string notr="true">
+
+QFrame{
+	background-color: rgb(249, 249, 249);
 }
 
 QPushButton{
-
-	padding:5px 10px;
+	width:150px;
+	font-size: 20px;
+	color:black;
 	border:none;
-	border-radius:10px;
-	background-color: rgb(255, 132, 26);
-}</string>
+}
+
+QPushButton:hover{
+	background-color: rgb(143,195,217);
+}
+
+</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -100,39 +217,85 @@ QPushButton{
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="contract">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
-             <string>PushButton</string>
+             <string>制定合約</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="rules">
             <property name="text">
-             <string>PushButton</string>
+             <string>營運規則</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="install">
             <property name="text">
-             <string>PushButton</string>
+             <string>申裝</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="change">
+            <property name="text">
+             <string>客戶異動</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="claim">
+            <property name="text">
+             <string>申吿</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bill">
+            <property name="text">
+             <string>出帳</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="writeoff">
+            <property name="text">
+             <string>銷帳</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="print">
+            <property name="text">
+             <string>列印</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="logout">
+            <property name="text">
+             <string>登出</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="exit">
+            <property name="text">
+             <string>離開</string>
             </property>
            </widget>
           </item>
@@ -141,50 +304,19 @@ QPushButton{
        </item>
        <item>
         <widget class="QFrame" name="Fragment">
+         <property name="styleSheet">
+          <string notr="true">background-color:rgb(231,230,235);
+border:none;</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QFrame" name="Header">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>-10</y>
-            <width>796</width>
-            <height>70</height>
-           </rect>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 132, 26);</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <widget class="QPushButton" name="burger">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>30</y>
-             <width>71</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </widget>
+         <property name="midLineWidth">
+          <number>0</number>
+         </property>
         </widget>
        </item>
       </layout>
@@ -193,6 +325,8 @@ QPushButton{
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../qrc/icon.qrc"/>
+ </resources>
  <connections/>
 </ui>
