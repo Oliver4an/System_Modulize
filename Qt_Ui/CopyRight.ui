@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/900hz.jpg);
+     <string notr="true">border-image: url(:/image/900hz.jpg);
 border-top-left-radius:40px;
 border-bottom-left-radius:40px;
 border-top-right-radius:40px;
@@ -53,7 +53,7 @@ border-bottom-right-radius:40px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">Color:black;</string>
+     <string notr="true">Color:white;</string>
     </property>
     <property name="text">
      <string>Every calling for Reason</string>
@@ -75,7 +75,7 @@ border-bottom-right-radius:40px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">Color:black;</string>
+     <string notr="true">Color:white;</string>
     </property>
     <property name="text">
      <string>900赫茲電信公司</string>
@@ -86,7 +86,7 @@ border-bottom-right-radius:40px;</string>
      <rect>
       <x>140</x>
       <y>490</y>
-      <width>211</width>
+      <width>291</width>
       <height>31</height>
      </rect>
     </property>
@@ -97,13 +97,13 @@ border-bottom-right-radius:40px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">Color:black;</string>
+     <string notr="true">Color:white;</string>
     </property>
     <property name="text">
-     <string>大哥大客戶與帳務服務系統</string>
+     <string>大哥大客戶與帳務服務系統  Version 0.5.28</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="TeamName">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -119,23 +119,10 @@ border-bottom-right-radius:40px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">Color:black;</string>
+     <string notr="true">Color:white;</string>
     </property>
     <property name="text">
      <string>製作團隊: D10817138</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>480</y>
-      <width>113</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Start</string>
     </property>
    </widget>
   </widget>

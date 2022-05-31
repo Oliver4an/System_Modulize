@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="images">
+  <qresource prefix="image">
     <file>../900hz.jpg</file>
   </qresource>
 </RCC>
