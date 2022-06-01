@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt,QTimer,QPropertyAnimation,QCoreApplication
+from PyQt5.QtCore import Qt,QTimer,QPropertyAnimation,QCoreApplication,QPoint
 from PyQt5 import QtWidgets ,QtCore
 from PyQt5.QtWidgets import QDesktopWidget
 from matplotlib import widgets
@@ -59,7 +59,9 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
                 self.ui.Account.setText("")
                 self.ui.PassWord.setText("")
                 widget.resize(1280,800)
-                widget.setCurrentIndex(widget.currentIndex()+1)
+                # widget.setCurrentIndex(widget.currentIndex()+1)
+                self.sub_window = MainPage_controller()
+                self.sub_window.show()
             else:
                 self.ui.warning.setText("ID and Password Are not match !!")
                 print(permission.fetchone())
@@ -71,6 +73,8 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
 class MainPage_controller(QtWidgets.QMainWindow):
    def __init__(self):
        super(MainPage_controller, self).__init__()
+       self.setWindowFlags(widget.windowFlags() | Qt.FramelessWindowHint)
+       self.setAttribute(Qt.WA_TranslucentBackground)
        self.ui=MainPage_Window()
        self.ui.setupUi(self)
        self.ui.burger.clicked.connect(lambda: self.slideLeftMenu())
@@ -122,6 +126,14 @@ class MainPage_controller(QtWidgets.QMainWindow):
        self.CloseMenu("")
        widget.setCurrentIndex(widget.currentIndex()-1)
       
+   def mousePressEvent(self, event):
+        self.oldPosition = event.globalPos()
+    
+   def mouseMoveEvent(self, event):
+        delta = QPoint(event.globalPos() - self.oldPosition)
+        print(delta)
+        self.move(self.x() + delta.x(), self.y() + delta.y())
+        self.oldPosition = event.globalPos()
 
        
 
@@ -137,7 +149,7 @@ if __name__ == '__main__':
     Main=MainPage_controller()
     widget.addWidget(window)
     widget.addWidget(Login)
-    widget.addWidget(Main)
+    
     
     widget.resize(813, 695)
     
