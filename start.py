@@ -10,31 +10,29 @@ from View.LogInUI import LogIn_MainWindow
 from View.MainPage import MainPage_Window
 class MainWindow_controller(QtWidgets.QMainWindow):
      def __init__(self):
-        # in python3, super(Class, self).xxx = super().xxx
         super(MainWindow_controller, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        widget.setWindowFlags(widget.windowFlags() | Qt.FramelessWindowHint)
-        widget.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags( Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.timer=QTimer(self)
         self.timer.timeout.connect(self.nav)
         self.timer.start(3000)
              
      def nav(self):
-        size = widget.geometry()
-        widget.resize(830, 652)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
+        self.login_window=LoginWindow_controller()
+        self.login_window.show()
+        self.close()
         self.timer.stop()
   
 
 class LoginWindow_controller(QtWidgets.QMainWindow):
     def __init__(self):
-        
         super(LoginWindow_controller, self).__init__()
+        self.setWindowFlags( Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.ui = LogIn_MainWindow()
         self.ui.setupUi(self)
-       
         self.ui.pushButton.clicked.connect(self.nav)
  
     def nav(self):
@@ -58,10 +56,9 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
                 self.ui.warning.setText("")
                 self.ui.Account.setText("")
                 self.ui.PassWord.setText("")
-                widget.resize(1280,800)
-                # widget.setCurrentIndex(widget.currentIndex()+1)
-                self.sub_window = MainPage_controller()
-                self.sub_window.show()
+                self.main_window = MainPage_controller()
+                self.main_window.show()
+                self.close()
             else:
                 self.ui.warning.setText("ID and Password Are not match !!")
                 print(permission.fetchone())
@@ -73,7 +70,7 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
 class MainPage_controller(QtWidgets.QMainWindow):
    def __init__(self):
        super(MainPage_controller, self).__init__()
-       self.setWindowFlags(widget.windowFlags() | Qt.FramelessWindowHint)
+       self.setWindowFlags( Qt.FramelessWindowHint)
        self.setAttribute(Qt.WA_TranslucentBackground)
        self.ui=MainPage_Window()
        self.ui.setupUi(self)
@@ -124,8 +121,10 @@ class MainPage_controller(QtWidgets.QMainWindow):
 
    def logoff(self):
        self.CloseMenu("")
-       widget.setCurrentIndex(widget.currentIndex()-1)
-      
+       self.login_window=LoginWindow_controller()
+       self.login_window.show()
+       self.close()
+           
    def mousePressEvent(self, event):
         self.oldPosition = event.globalPos()
     
@@ -140,20 +139,9 @@ class MainPage_controller(QtWidgets.QMainWindow):
     
 if __name__ == '__main__':
     import sys
-  
     app = QtWidgets.QApplication(sys.argv)
-    widget=QtWidgets.QStackedWidget()
-    screen = QDesktopWidget().screenGeometry()
     window = MainWindow_controller()
-    Login=LoginWindow_controller()
-    Main=MainPage_controller()
-    widget.addWidget(window)
-    widget.addWidget(Login)
-    
-    
-    widget.resize(813, 695)
-    
-    widget.show()
+    window.show()
     sys.exit(app.exec_())
 
    
