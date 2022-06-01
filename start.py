@@ -14,16 +14,15 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         super(MainWindow_controller, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        widget.setWindowFlags(widget.windowFlags() | Qt.FramelessWindowHint)
+        widget.setAttribute(Qt.WA_TranslucentBackground)
         self.timer=QTimer(self)
         self.timer.timeout.connect(self.nav)
         self.timer.start(3000)
              
      def nav(self):
         size = widget.geometry()
-        widget.setGeometry(
-            (screen.width() - size.width()) / 2,  
-            (screen.height() - size.height()) / 2,
-        830, 652)
+        widget.resize(830, 652)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
         self.timer.stop()
@@ -59,6 +58,7 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
                 self.ui.warning.setText("")
                 self.ui.Account.setText("")
                 self.ui.PassWord.setText("")
+                widget.resize(1280,800)
                 widget.setCurrentIndex(widget.currentIndex()+1)
             else:
                 self.ui.warning.setText("ID and Password Are not match !!")
@@ -73,7 +73,6 @@ class MainPage_controller(QtWidgets.QMainWindow):
        super(MainPage_controller, self).__init__()
        self.ui=MainPage_Window()
        self.ui.setupUi(self)
-       self.ui.Header.mouseMoveEvent=moveWindow
        self.ui.burger.clicked.connect(lambda: self.slideLeftMenu())
        self.ui.Context.setCurrentWidget(self.ui.Home)
        self.ui.contract.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.ContractLayout)))
@@ -86,7 +85,7 @@ class MainPage_controller(QtWidgets.QMainWindow):
        self.ui.split.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.SplitLayout)))
        self.ui.print.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.PrintLayout)))
        self.ui.exit.clicked.connect(QCoreApplication.instance().quit)
-       self.ui.logout.clicked.connect(lambda:widget.setCurrentIndex(widget.currentIndex()-1))
+       self.ui.logout.clicked.connect(lambda:self.logoff())
 
    def slideLeftMenu(self):
             # Get current left menu width
@@ -109,7 +108,7 @@ class MainPage_controller(QtWidgets.QMainWindow):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
-   def CloseMenu(self,action):
+   def CloseMenu(self,action=""):
     action
     # Animate the transition
     self.animation = QPropertyAnimation(self.ui.Left_Bar, b"minimumWidth")#Animate minimumWidht
@@ -119,8 +118,9 @@ class MainPage_controller(QtWidgets.QMainWindow):
     self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
     self.animation.start()
 
-   def mousePressEvent(self,event):
-       self.ClickPosition=event.globalPos()
+   def logoff(self):
+       self.CloseMenu("")
+       widget.setCurrentIndex(widget.currentIndex()-1)
       
 
        
@@ -139,23 +139,9 @@ if __name__ == '__main__':
     widget.addWidget(Login)
     widget.addWidget(Main)
     
-    size = widget.geometry()
-    widget.setGeometry(
-        (screen.width() - size.width()) / 2,  
-        (screen.height() - size.height()) / 2,
-        813, 695)
-    widget.setWindowFlags(widget.windowFlags() | Qt.FramelessWindowHint)
-    widget.setAttribute(Qt.WA_TranslucentBackground)
-   
+    widget.resize(813, 695)
+    
     widget.show()
-    
-   
-    
-   
-
-
-    
-   
     sys.exit(app.exec_())
 
    
