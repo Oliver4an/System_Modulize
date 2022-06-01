@@ -1,9 +1,10 @@
-from PyQt5.QtCore import Qt,QTimer,QPropertyAnimation
+from PyQt5.QtCore import Qt,QTimer,QPropertyAnimation,QCoreApplication
 from PyQt5 import QtWidgets ,QtCore
 from PyQt5.QtWidgets import QDesktopWidget
 from matplotlib import widgets
 import time
 import pyodbc
+from pyparsing import CloseMatch
 from View.UI import Ui_MainWindow
 from View.LogInUI import LogIn_MainWindow
 from View.MainPage import MainPage_Window
@@ -34,28 +35,9 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
         super(LoginWindow_controller, self).__init__()
         self.ui = LogIn_MainWindow()
         self.ui.setupUi(self)
+       
         self.ui.pushButton.clicked.connect(self.nav)
-
-    def mousePressEvent(self, event):
-    
-        self.clickPosition = event.globalPos()
-
-        def moveWindow(e):
-                # Detect if the window is  normal size
-                # ###############################################  
-            if self.isMaximized() == False: #Not maximized
-                # Move window only when window is normal size  
-                # ###############################################
-                #if left mouse button is clicked (Only accept left mouse button clicks)
-                if e.buttons() == Qt.LeftButton:  
-                    #Move window 
-                    self.move(self.pos() + e.globalPos() - self.clickPosition)
-                    self.clickPosition = e.globalPos()
-                    e.accept()
-        
-        self.ui.centralwidget.mouseMoveEvent = moveWindow
-
-    
+ 
     def nav(self):
        
         id = self.ui.Account.text()
@@ -75,6 +57,8 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
             if permission.fetchone():
                 print(True)
                 self.ui.warning.setText("")
+                self.ui.Account.setText("")
+                self.ui.PassWord.setText("")
                 widget.setCurrentIndex(widget.currentIndex()+1)
             else:
                 self.ui.warning.setText("ID and Password Are not match !!")
@@ -89,7 +73,20 @@ class MainPage_controller(QtWidgets.QMainWindow):
        super(MainPage_controller, self).__init__()
        self.ui=MainPage_Window()
        self.ui.setupUi(self)
+       self.ui.Header.mouseMoveEvent=moveWindow
        self.ui.burger.clicked.connect(lambda: self.slideLeftMenu())
+       self.ui.Context.setCurrentWidget(self.ui.Home)
+       self.ui.contract.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.ContractLayout)))
+       self.ui.rules.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.RulesLayout)))
+       self.ui.install.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.InstallLayout)))
+       self.ui.change.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.ChangeLayout)))
+       self.ui.claim.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.ClaimLayout)))
+       self.ui.bill.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.BillLayout)))
+       self.ui.writeoff.clicked.connect(lambda : self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.WriteOffLayout)))
+       self.ui.split.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.SplitLayout)))
+       self.ui.print.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.PrintLayout)))
+       self.ui.exit.clicked.connect(QCoreApplication.instance().quit)
+       self.ui.logout.clicked.connect(lambda:widget.setCurrentIndex(widget.currentIndex()-1))
 
    def slideLeftMenu(self):
             # Get current left menu width
@@ -103,9 +100,7 @@ class MainPage_controller(QtWidgets.QMainWindow):
         else:
             # Restore menu
             newWidth =0
-        
         print(f"width:{width},newWidth:{newWidth}")
-
         # Animate the transition
         self.animation = QPropertyAnimation(self.ui.Left_Bar, b"minimumWidth")#Animate minimumWidht
         self.animation.setDuration(250)
@@ -114,6 +109,21 @@ class MainPage_controller(QtWidgets.QMainWindow):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
+   def CloseMenu(self,action):
+    action
+    # Animate the transition
+    self.animation = QPropertyAnimation(self.ui.Left_Bar, b"minimumWidth")#Animate minimumWidht
+    self.animation.setDuration(250)
+    self.animation.setStartValue(self.ui.Left_Bar.width())#Start value is the current menu width
+    self.animation.setEndValue(0)#end value is the new menu width
+    self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+    self.animation.start()
+
+   def mousePressEvent(self,event):
+       self.ClickPosition=event.globalPos()
+      
+
+       
 
     
 if __name__ == '__main__':
