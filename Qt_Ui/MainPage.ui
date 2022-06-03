@@ -1137,7 +1137,7 @@ border-bottom-right-radius:40px;</string>
                  </size>
                 </property>
                </widget>
-               <widget class="QTextEdit" name="Address2">
+               <widget class="QTextEdit" name="Addr2">
                 <property name="geometry">
                  <rect>
                   <x>10</x>
@@ -1199,11 +1199,6 @@ border-bottom-right-radius:40px;</string>
                    <height>16777215</height>
                   </size>
                  </property>
-                 <item>
-                  <property name="text">
-                   <string>健保卡</string>
-                  </property>
-                 </item>
                 </widget>
                 <widget class="QLabel" name="IdType">
                  <property name="geometry">

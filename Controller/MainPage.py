@@ -1,3 +1,4 @@
+from re import search
 from sre_compile import isstring
 from PyQt5.QtCore import Qt,QTimer,QPropertyAnimation,QCoreApplication,QPoint
 from PyQt5 import QtWidgets ,QtCore
@@ -6,6 +7,7 @@ from matplotlib import widgets
 from PyQt5.QtGui import *
 import pyodbc
 from pyparsing import CloseMatch
+from DbManger import DbManger
 from View.UI import Ui_MainWindow
 from View.LogInUI import LogIn_MainWindow
 from View.MainPage import MainPage_Window
@@ -19,7 +21,7 @@ class MainPage_controller(QtWidgets.QMainWindow):
        self.ui=MainPage_Window()
        self.ui.setupUi(self)
        self.ui.burger.clicked.connect(lambda: self.slideLeftMenu())
-
+       self.dbManger=DbManger()
        ################Change Fragment
        self.ui.Context.setCurrentWidget(self.ui.Home)
        self.ui.contract.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.ContractLayout)))
@@ -33,13 +35,10 @@ class MainPage_controller(QtWidgets.QMainWindow):
        self.ui.print.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.PrintLayout)))
        self.ui.exit.clicked.connect(QCoreApplication.instance().quit)
        self.ui.logout.clicked.connect(lambda:self.logoff())
-       self.id_check()
+       self.loadData
        ###############Task of Install
-       ID=self.ui.IDNumber
-       #self.ui.IDNumber.textChanged.connect(lambda : True if( len(self.ui.IDNumber.toPlainText())>0 and self.ui.IDNumber.toPlainText()[0].isupper())else False)
-       self.ui.IDNumber.textChanged.connect(self.id_check)
+       self.ui.IDNumber.textChanged.connect(self.loadData)
 
-#    def Task(self):
      
    def slideLeftMenu(self):
             # Get current left menu width
@@ -88,22 +87,21 @@ class MainPage_controller(QtWidgets.QMainWindow):
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPosition = event.globalPos()
 
-   def id_check(self):
-        
+   def loadData(self):
+       ###id_check###
         if len(self.ui.IDNumber.toPlainText())>0:
             if self.ui.IDNumber.toPlainText()[0].istitle():
                 if len(self.ui.IDNumber.toPlainText())>1:
                     if self.ui.IDNumber.toPlainText()[1]=="1":
                         self.ui.Male.setChecked(True)
-                        print("Male")
                     elif self.ui.IDNumber.toPlainText()[1]=="2":
-                            self.ui.Female.setChecked(True)
-                            print("Female")
+                            self.ui.Female.setChecked(True)       
                     else:
                         ID= self.ui.IDNumber.toPlainText()
                         self.ui.IDNumber.setText(ID[0])
-                        self.ui.Male.setChecked(False)
-                        self.ui.Female.setChecked(False)
+                        cur = self.ui.IDNumber.textCursor()
+                        cur.movePosition(QTextCursor.End)
+                        self.ui.IDNumber.setTextCursor(cur)  
             elif self.ui.IDNumber.toPlainText()[0].isalpha():
                 self.ui.IDNumber.setText(self.ui.IDNumber.toPlainText()[0].upper())
                 cur = self.ui.IDNumber.textCursor()
@@ -111,7 +109,30 @@ class MainPage_controller(QtWidgets.QMainWindow):
                 self.ui.IDNumber.setTextCursor(cur)            
             else:
                 self.ui.IDNumber.setText("")
-             
+       
+
+        if len(self.ui.IDNumber.toPlainText())==10:
+            IdNum= self.ui.IDNumber.toPlainText()
+            client=self.dbManger.ClientInfo(IdNum)
+            if client:
+                self.ui.Name.setText(client[2])
+                self.ui.Birth.setText(client[3])
+                self.ui.Addr1.setText(client[5])
+                self.ui.Addr2 .setText(client[6])
+                self.ui.SecondId.addItem(client[1])
+                self.ui.AddressCheck.setChecked(True) if (client[5]==client[6]) else (self.ui.AddressCheck.setChecked(False))
+        
+        else:
+            self.ui.Name.clear()
+            self.ui.Birth.clear()
+            self.ui.Male.setChecked(False)
+            self.ui.Male.setChecked(False)
+            self.ui.AddressCheck.setChecked(False)
+            self.ui.Addr1.clear()
+            self.ui.Addr2 .clear()
+            self.ui.SecondId.clear()
+            self.ui.AddressCheck.setChecked(False)
+      
 
 
        

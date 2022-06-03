@@ -1,3 +1,4 @@
+import json
 import pyodbc
 
 class DbManger():
@@ -7,7 +8,6 @@ class DbManger():
         self.username="sa"
         self.password="2022Takming"
         self.cnxn=pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+self.server+';DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
-           
 
     def Login(self,id,pwd):
        
@@ -25,4 +25,11 @@ class DbManger():
             
             return "connect is not working"
 
+    def ClientInfo(self,id):
+        
+        cursor=self.cnxn.cursor()
+        rows=cursor.execute(f"SELECT * FROM 客戶基本資料 WHERE 身分證字號='{id}'").fetchall()
+        data=[x for x in rows]
+        data=data[0]
+        return data
 
