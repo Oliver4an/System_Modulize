@@ -12,9 +12,10 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
         self.ui = LogIn_MainWindow()
         self.ui.setupUi(self)
         self.ui.pushButton.clicked.connect(self.nav)
+        self.wrong=0
  
     def nav(self):
-       
+        
         id = self.ui.Account.text()
         pwd=self.ui.PassWord.text()
         print(id,pwd)
@@ -32,6 +33,15 @@ class LoginWindow_controller(QtWidgets.QMainWindow):
         elif perm=="connect is not working":
             self.ui.warning.setText("connect is not working")
         else:
-            self.ui.warning.setText("ID and Password Are not match !!")
+            print(self.wrong)
+
+            if self.wrong>=3:
+                import sys
+                app = QtWidgets.QApplication(sys.argv)
+                sys.exit(app.exec_())
+            else:
+                self.wrong+=1
+                self.ui.warning.setText(f"password and ID are not match !!")
+            
          
 

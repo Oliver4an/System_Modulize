@@ -1,15 +1,9 @@
-from re import search
-from sre_compile import isstring
-from PyQt5.QtCore import Qt,QTimer,QPropertyAnimation,QCoreApplication,QPoint
+from PyQt5.QtCore import Qt,QPropertyAnimation,QCoreApplication,QPoint,QDateTime,QTimer
 from PyQt5 import QtWidgets ,QtCore
-from PyQt5.QtWidgets import QDesktopWidget
-from matplotlib import widgets
 from PyQt5.QtGui import *
-import pyodbc
-from pyparsing import CloseMatch
+import datetime
+from Controller.ParentsPage import Parents_controller
 from DbManger import DbManger
-from View.UI import Ui_MainWindow
-from View.LogInUI import LogIn_MainWindow
 from View.MainPage import MainPage_Window
 
 
@@ -22,6 +16,7 @@ class MainPage_controller(QtWidgets.QMainWindow):
        self.ui.setupUi(self)
        self.ui.burger.clicked.connect(lambda: self.slideLeftMenu())
        self.dbManger=DbManger()
+
        ################Change Fragment
        self.ui.Context.setCurrentWidget(self.ui.Home)
        self.ui.contract.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.ContractLayout)))
@@ -35,11 +30,14 @@ class MainPage_controller(QtWidgets.QMainWindow):
        self.ui.print.clicked.connect(lambda :self.CloseMenu(self.ui.Context.setCurrentWidget(self.ui.PrintLayout)))
        self.ui.exit.clicked.connect(QCoreApplication.instance().quit)
        self.ui.logout.clicked.connect(lambda:self.logoff())
-       self.loadData
-       ###############Task of Install
-       self.ui.IDNumber.textChanged.connect(self.loadData)
 
-     
+       ###############Task of Install
+       self.Second()
+       self.setTime()
+       self.ui.IDNumber.textChanged.connect(self.loadData)
+       self.ui.AddressCheck.stateChanged.connect(self.sameAdd)
+       self.ui.Birth.textChanged.connect(lambda: self.AgeCheck() if  (len(self.ui.IDNumber.toPlainText())==10) else "")
+   
    def slideLeftMenu(self):
             # Get current left menu width
         width = self.ui.Left_Bar.width()
@@ -86,7 +84,12 @@ class MainPage_controller(QtWidgets.QMainWindow):
         print(delta)
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPosition = event.globalPos()
+   
+  
+       
 
+
+#########ClientInfo#################
    def loadData(self):
        ###id_check###
         if len(self.ui.IDNumber.toPlainText())>0:
@@ -110,7 +113,7 @@ class MainPage_controller(QtWidgets.QMainWindow):
             else:
                 self.ui.IDNumber.setText("")
        
-
+      ####Get Info
         if len(self.ui.IDNumber.toPlainText())==10:
             IdNum= self.ui.IDNumber.toPlainText()
             client=self.dbManger.ClientInfo(IdNum)
@@ -119,9 +122,11 @@ class MainPage_controller(QtWidgets.QMainWindow):
                 self.ui.Birth.setText(client[3])
                 self.ui.Addr1.setText(client[5])
                 self.ui.Addr2 .setText(client[6])
-                self.ui.SecondId.addItem(client[1])
-                self.ui.AddressCheck.setChecked(True) if (client[5]==client[6]) else (self.ui.AddressCheck.setChecked(False))
-        
+                self.ui.SecondId.setCurrentText(client[1])
+                self.AddrCheck(client[5],client[6])
+                self.AgeCheck()
+        elif len(self.ui.IDNumber.toPlainText())==0:
+            self.ui.SecondId.setCurrentText("請選擇")
         else:
             self.ui.Name.clear()
             self.ui.Birth.clear()
@@ -130,12 +135,57 @@ class MainPage_controller(QtWidgets.QMainWindow):
             self.ui.AddressCheck.setChecked(False)
             self.ui.Addr1.clear()
             self.ui.Addr2 .clear()
-            self.ui.SecondId.clear()
             self.ui.AddressCheck.setChecked(False)
       
+   def AddrCheck(self,a1,a2):
+       self.ui.AddressCheck.setChecked(True) if (a1==a2) else (self.ui.AddressCheck.setChecked(False))
+
+   def sameAdd(self):
+       if self.ui.Addr1.toPlainText():
+           self.ui.Addr2.setText(self.ui.Addr1.toPlainText())  
+
+   def AgeCheck(self):  
+       age=0
+       if len(self.ui.IDNumber.toPlainText())==10 & len(self.ui.Birth.toPlainText())==10:
+           
+            print(self.ui.IDNumber.toPlainText())
+            today=str(datetime.date.today()).split("-")
+            birth=self.ui.Birth.toPlainText().split("/")
+            if(int(today[1])-int(birth[1])>=0):
+                    age=int(today[0])-int(birth[0])
+            else:
+                    age=int(today[0])-int(birth[0])-1
+            
+            if age<18:
+                    print(age)
+                    self.parent=Parents_controller()
+                    self.parent.show()
+
+   def Second(self):
+     items=self.dbManger.SecondIDType()
+     self.ui.SecondId.addItems(items)
+
+   
+   def setTime(self):
+       timer=QTimer(self)
+       timer.timeout.connect(self.Nowtime)
+       timer.start(1000)
+    
+   def Nowtime(self):
+       datetime = QDateTime.currentDateTime() #獲取當前日期與時間
+       self.ui.Date.setText(datetime.toString())
+    #    print(datetime.toString())
+
+            # loc_dt = datetime.datetime.today() 
+            # loc_dt_format = loc_dt.strftime("%Y/%m/%d %H:%M:%S")
+            # self.trigger.emit(str(loc_dt_format))
+            # print(str(loc_dt_format))
 
 
        
+                
+
+
 
 
    

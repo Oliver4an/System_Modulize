@@ -503,9 +503,9 @@ QLabel{
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>30</y>
-               <width>231</width>
-               <height>61</height>
+               <y>20</y>
+               <width>271</width>
+               <height>71</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -529,6 +529,9 @@ QLabel{
                <widget class="QTextEdit" name="Date">
                 <property name="styleSheet">
                  <string notr="true">border:1px solid black;</string>
+                </property>
+                <property name="readOnly">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -851,8 +854,8 @@ QLabel{
               <rect>
                <x>10</x>
                <y>0</y>
-               <width>116</width>
-               <height>34</height>
+               <width>91</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1199,6 +1202,11 @@ border-bottom-right-radius:40px;</string>
                    <height>16777215</height>
                   </size>
                  </property>
+                 <item>
+                  <property name="text">
+                   <string>請選擇</string>
+                  </property>
+                 </item>
                 </widget>
                 <widget class="QLabel" name="IdType">
                  <property name="geometry">
